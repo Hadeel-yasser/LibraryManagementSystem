@@ -19,9 +19,10 @@ public class BorrowingController {
     private BorrowingService borrowingService;
 
     @PostMapping("/{bookId}/patron/{patronId}")
-    public ResponseEntity<String> borrowBook(@PathVariable Long bookId, @PathVariable Long patronId, @RequestBody String expectedReturnDate){
+    public ResponseEntity<String> borrowBook(@PathVariable Long bookId, @PathVariable Long patronId, @RequestBody java.util.Map<String, String> borrowDate){
 
         try{
+            String expectedReturnDate = borrowDate.get("expectedReturnDate");
             borrowingService.borrowBook(bookId, patronId, expectedReturnDate);
             return new ResponseEntity<>("Book borrowed successfully!", HttpStatus.CREATED);
         }
@@ -50,7 +51,7 @@ public class BorrowingController {
         catch (Exception e) {
             // Catch-all for unexpected exceptions 
             e.printStackTrace(); // Log the exception for debugging
-            return new ResponseEntity<>("An error occurred while borrowing the book", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("An error occurred while returning the book", HttpStatus.INTERNAL_SERVER_ERROR);
           }
         
      }

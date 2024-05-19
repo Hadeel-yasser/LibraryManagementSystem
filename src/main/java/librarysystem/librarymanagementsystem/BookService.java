@@ -41,7 +41,13 @@ public class BookService {
     public Book updateBook(Long id, Book book) throws BookNotFoundException{
         Optional<Book> existingBook = booksRepository.findById(id);
         if (existingBook.isPresent() && existingBook.get().getBookId()==id){
-                booksRepository.save(book);
+                existingBook.get().setBookId(id);
+                existingBook.get().setAuthor(book.getAuthor());
+                existingBook.get().setBookTitle(book.getBookTitle());
+                existingBook.get().setIsbn(book.getIsbn());
+                existingBook.get().setPublicationYear(book.getPublicationYear());
+                existingBook.get().setStatus(book.getStatus());
+                booksRepository.save(existingBook.get());
                 logger.info("Book "+existingBook.get().getBookTitle()+" have been updated successfully!");
             return book;
         }

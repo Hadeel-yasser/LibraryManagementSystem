@@ -23,29 +23,16 @@ public class BorrowingRecord {
     @NotBlank(message = "Book Id is required")
     private Book book;
 
-    
-    public Book getBook() {
-        return book;
-    }
-    public void setBook(Book book) {
-        this.book = book;
-    }
     @ManyToOne
     @NotBlank(message = "Patron Id is required")
     private Patron patron;
 
-    
-    public Patron getPatron() {
-        return patron;
-    }
-    public void setPatron(Patron patron) {
-        this.patron = patron;
-    }
     private Date borrowedDate;
     private LocalDate expectedReturnDate;
     
     
-
+    public BorrowingRecord() {
+    }
     public BorrowingRecord(@NotBlank(message = "Book Id is required") Book book,
             @NotBlank(message = "Patron Id is required") Patron patron, Date borrowedDate,
             LocalDate expectedReturnDate) {
@@ -61,7 +48,6 @@ public class BorrowingRecord {
         this.borrowingRecordId = borrowingRecordId;
     }
     
-    
     public Date getBorrowedDate() {
         return borrowedDate;
     }
@@ -75,6 +61,19 @@ public class BorrowingRecord {
         this.expectedReturnDate = expectedReturnDate;
     }
 
+    public Patron getPatron() {
+        return patron;
+    }
+    public void setPatron(Patron patron) {
+        this.patron = patron;
+    }
+    
+    public Book getBook() {
+        return book;
+    }
+    public void setBook(Book book) {
+        this.book = book;
+    }
     
 }
 

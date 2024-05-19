@@ -36,7 +36,7 @@ public class BorrowingService {
         if (!book.getStatus().equals("Available")) {
           throw new BookNotAvailableException("Book with id " + bookId + " is not available");
         }
-        
+        logger.info("date "+dateString);
         LocalDate expectedReturnDate = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         BorrowingRecord borrowingRecord = new BorrowingRecord(book,patron,new Date(),expectedReturnDate);
          
