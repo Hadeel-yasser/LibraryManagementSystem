@@ -14,6 +14,14 @@ public class ContactInfo {
     private String emailAddress;
     
     private String postalAddress;
+
+    
+    public ContactInfo(@NotBlank(message = "Phone Number is required") String phoneNumber,
+            @NotBlank(message = "Email is required") String emailAddress, String postalAddress) {
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+        this.postalAddress = postalAddress;
+    }
     public String getPhoneNumber() {
         return phoneNumber;
     }

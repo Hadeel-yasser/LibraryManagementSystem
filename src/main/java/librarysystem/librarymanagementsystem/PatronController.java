@@ -64,6 +64,7 @@ public class PatronController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePatron(@PathVariable Long id, @Valid @RequestBody Patron patron, BindingResult bindingResult) {
+    try{
         if (bindingResult.hasErrors()) {
             ErrorResponse errorResponse = new ErrorResponse();
             errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -76,8 +77,13 @@ public class PatronController {
             errorResponse.setDetails(details);
             return ResponseEntity.badRequest().body(errorResponse);
         }
+
         patronService.updatePatron(id, patron);
         return ResponseEntity.ok(patron);
+        }
+        catch (PatronNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -87,7 +93,7 @@ public class PatronController {
             return ResponseEntity.ok("Patron with id "+ id + " deleted successfully");
         }
         catch (PatronNotFoundException e){
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.notFound().build();
         }
     }
 }

@@ -21,6 +21,10 @@ public class Patron {
     @Embedded
     private ContactInfo contactInfo;
 
+    public Patron(@NotBlank(message = "Patron name is required") String name, ContactInfo contactInfo) {
+        this.name = name;
+        this.contactInfo = contactInfo;
+    }
     public String getName() {
         return name;
     }
