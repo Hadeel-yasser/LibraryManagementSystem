@@ -49,13 +49,18 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateBook(@PathVariable Long id, @Valid @RequestBody Book book, BindingResult bindingResult) {
+    public ResponseEntity<?> updateBook(@PathVariable Long id, @Valid @RequestBody Book book, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             // Handle validation errors
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-        bookService.updateBook(id, book);
-        return ResponseEntity.ok(book);
+        try {
+            bookService.updateBook(id, book);
+            return ResponseEntity.ok(book);
+            
+        } catch (BookNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }   
     }
 
 
@@ -66,7 +71,7 @@ public class BookController {
             return ResponseEntity.ok("Book with id "+ id + " deleted successfully");
         }
         catch (BookNotFoundException e){
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.notFound().build();
         }
     }
 }

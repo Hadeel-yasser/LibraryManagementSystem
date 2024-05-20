@@ -26,7 +26,20 @@ public class Book {
     
     @NotBlank(message = "Book status is require")
     private String status;
+
+    public Book(@NotBlank(message = "Book title is required") String bookTitle,
+            @NotBlank(message = "Book author is required") String author,
+            @NotBlank(message = "ISBN is required") String isbn,
+            @NotBlank(message = "Book status is require") String status) {
+        this.bookTitle = bookTitle;
+        this.author = author;
+        this.isbn = isbn;
+        this.status = status;
+    }
     
+    public Book() {
+    }
+
     public Long getBookId() {
         return bookId;
     }
